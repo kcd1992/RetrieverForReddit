@@ -2,8 +2,15 @@ package com.kdepagter.json.mapping;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+/**
+ * Data object for parsing sub level of Reddit JSON response
+ * @author kyle depagter
+ * @version initial release
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonRootName("data")
 public class PostData {
 	
 	@JsonProperty("subreddit_name_prefixed")
@@ -11,15 +18,15 @@ public class PostData {
 	@JsonProperty("author")
 	private String postAuthor = "";
 	@JsonProperty("downs")
-	private String downvotes = "";
+	private int downvotes =0;
 	@JsonProperty("url")
 	private String content = "";
 	@JsonProperty("title")
 	private String postTitle = "";
-	@JsonProperty("created_utc")
-	private String createdDateTime = "";
+	@JsonProperty("created")
+	private long createdDateTime = 1L;
 	@JsonProperty("ups")
-	private String upvotes = "";
+	private int upvotes = 0;
 	public String getSubredditName() {
 		return subredditName;
 	}
@@ -32,10 +39,10 @@ public class PostData {
 	public void setPostAuthor(String postAuthor) {
 		this.postAuthor = postAuthor;
 	}
-	public String getDownvotes() {
+	public int getDownvotes() {
 		return downvotes;
 	}
-	public void setDownvotes(String downvotes) {
+	public void setDownvotes(int downvotes) {
 		this.downvotes = downvotes;
 	}
 	public String getContent() {
@@ -50,16 +57,16 @@ public class PostData {
 	public void setPostTitle(String postTitle) {
 		this.postTitle = postTitle;
 	}
-	public String getCreatedDateTime() {
+	public long getCreatedDateTime() {
 		return createdDateTime;
 	}
-	public void setCreatedDateTime(String createdDateTime) {
+	public void setCreatedDateTime(long createdDateTime) {
 		this.createdDateTime = createdDateTime;
 	}
-	public String getUpvotes() {
+	public int getUpvotes() {
 		return upvotes;
 	}
-	public void setUpvotes(String upvotes) {
+	public void setUpvotes(int upvotes) {
 		this.upvotes = upvotes;
 	}
 	

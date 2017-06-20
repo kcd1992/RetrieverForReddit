@@ -1,3 +1,10 @@
 C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\RetrieverForReddit\App.java
-C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\webservice\RedditRequestController.java
+C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\json\mapping\TopData.java
+C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\json\mapping\PostData.java
 C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\dataobj\SubredditItem.java
+C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\json\mapping\Children.java
+C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\processor\RedditRequestProcessor.java
+C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\RetrieverForReddit\RedditRequestController.java
+C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\processor\RedditRequestValidator.java
+C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\json\mapping\RedditResponse.java
+C:\Users\kyled\git\RetrieverForReddit\RetrieverForReddit\src\main\java\com\kdepagter\processor\SubredditProcessorThread.java

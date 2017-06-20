@@ -2,8 +2,15 @@ package com.kdepagter.json.mapping;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+/**
+ * Data object for parsing sub level of Reddit JSON response
+ * @author kyle depagter
+ * @version initial release
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonRootName("children")
 public class Children {
 
 	@JsonProperty("kind")

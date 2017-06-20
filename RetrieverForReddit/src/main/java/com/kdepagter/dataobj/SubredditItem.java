@@ -1,14 +1,18 @@
 package com.kdepagter.dataobj;
 
-import java.util.Date;
-
+/**
+ * Data object representation of desired fields from each requested subreddit
+ * @author kyle depagter
+ * @version initial release
+ *
+ */
 public class SubredditItem {
 	private String subredditName = "";
 	private String postTitle = "";
 	private String postAuthor = "";
-	private Date createdTime = new Date();
-	private int upvotes = 0;
-	private int downvotes = 0;
+	private String createdTime = "";
+	private String upvotes = "";
+	private String downvotes = "";
 	private String content = "";
 	private String errorMessage = "";
 	
@@ -34,22 +38,22 @@ public class SubredditItem {
 	public void setPostAuthor(String postAuthor) {
 		this.postAuthor = postAuthor;
 	}
-	public Date getCreatedTime() {
+	public String getCreatedTime() {
 		return createdTime;
 	}
-	public void setCreatedTime(Date createdTime) {
+	public void setCreatedTime(String createdTime) {
 		this.createdTime = createdTime;
 	}
-	public int getUpvotes() {
+	public String getUpvotes() {
 		return upvotes;
 	}
-	public void setUpvotes(int upvotes) {
+	public void setUpvotes(String upvotes) {
 		this.upvotes = upvotes;
 	}
-	public int getDownvotes() {
+	public String getDownvotes() {
 		return downvotes;
 	}
-	public void setDownvotes(int downvotes) {
+	public void setDownvotes(String downvotes) {
 		this.downvotes = downvotes;
 	}
 	public String getContent() {
@@ -58,11 +62,9 @@ public class SubredditItem {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public String getErrorMessage() {
 		return errorMessage;
 	}
-
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
