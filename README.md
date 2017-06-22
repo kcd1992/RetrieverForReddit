@@ -24,5 +24,5 @@ Future enhancements:
   
     1.) Utilize unit testing
     2.) Provide more descriptive error handling
-    3.) Create application level ExecutorService
+    3.) Create application level ExecutorService - complete v. 1.1
     4.) Offer searching for top post of other than 24 hours.
