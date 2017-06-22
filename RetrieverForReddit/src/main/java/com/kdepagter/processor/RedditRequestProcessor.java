@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +18,7 @@ import com.kdepagter.dataobj.SubredditItem;
 /**
  * Processes web service request, obtains data from each requested subreddit.
  * @author kyle depagter
- * @version initial release
+ * @version 1.1
  *
  */
 public class RedditRequestProcessor implements Serializable{
@@ -24,6 +26,7 @@ public class RedditRequestProcessor implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private final Logger log = LoggerFactory.getLogger(RedditRequestProcessor.class);
 	private volatile Map<String, SubredditItem> resultMap;
+	private transient ExecutorCompletionService<String> ecs;
 	
 	public RedditRequestProcessor(){
 		super();
@@ -45,7 +48,7 @@ public class RedditRequestProcessor implements Serializable{
 	 * @param listOfSubredditsString - comma delineated String of subreddit names
 	 * @return List<SubredditItem> - List of desired attributes from top posting on each subreddit
 	 */
-	public List<SubredditItem> processRedditRequest(String listOfSubredditsString){
+	public List<SubredditItem> processRedditRequest(String listOfSubredditsString, ExecutorService executor){
 		RedditRequestValidator validator = new RedditRequestValidator();
 		List<String> subredditNameList = validator.getListOfSubreddits(listOfSubredditsString);
 		List<SubredditItem> responseList = new ArrayList<SubredditItem>();
@@ -55,7 +58,7 @@ public class RedditRequestProcessor implements Serializable{
 		}
 		long start = System.currentTimeMillis();
 		try {
-			callSubredditProcessors(subredditNameList);
+			callSubredditProcessors(subredditNameList, executor);
 			responseList = validator.validateSubredditThreadResponses(resultMap, subredditNameList);
 			resultMap = null;
 		} catch (Exception e) {
@@ -73,23 +76,22 @@ public class RedditRequestProcessor implements Serializable{
 	 * @param subredditNameList - List<String> subreddit names 
 	 * @throws Exception
 	 */
-	private void callSubredditProcessors(List<String> subredditNameList) throws Exception{
-		ExecutorService executor = Executors.newFixedThreadPool(5);
+	private void callSubredditProcessors(List<String> subredditNameList, ExecutorService executor) throws Exception{
+		ecs = new ExecutorCompletionService<String>(executor);
+		List<Future<String>> futureList = new ArrayList<Future<String>>();
 		int numberOfRequests = subredditNameList.size();
 		for(int i=0; i<numberOfRequests; i++){
 			String currentSubreddit = subredditNameList.get(i);
 			SubredditProcessorThread currentThread = new SubredditProcessorThread(currentSubreddit, this);
-			executor.execute(currentThread);
+			futureList.add(ecs.submit(currentThread, currentSubreddit));
 		}
-		executor.shutdown();
-		for(int j=0; j<5; j++){
-			if(!executor.isTerminated()){
-				Thread.sleep(1000);
-			} else {
-				executor = null;
-				return;
+
+		for(int i=0; i<numberOfRequests; i++){
+			Future<String> currentResponse = ecs.poll(1, TimeUnit.SECONDS);
+			if(currentResponse == null){
+				log.info("Timed out waiting for subreddit response on iteration: " + Integer.toString(i));
 			}
 		}
-		
+		ecs = null;
 	}
 }
